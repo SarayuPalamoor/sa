@@ -1,0 +1,24 @@
+minikube start --driver=docker
+
+kubectl create deployment mynginx --image=nginx
+
+kubectl expose deployment mynginx --type=NodePort --port=80
+
+minikube service mynginx --url  
+(OPTIONAL:  if it doesnt work use:  
+kubectl port-forward service/mynginx 8085:80 
+and open http://localhost:8085)
+
+kubectl get pods
+
+kubectl get svc
+
+kubectl get deployment
+
+kubectl describe pod <pod-name>
+
+ (If they want specific port like 8090 use this:
+kubectl expose deployment mynginx --type=NodePort --port=8090 --target-port=80 )
+
+(To delete service :
+kubectl delete service mynginx  )
