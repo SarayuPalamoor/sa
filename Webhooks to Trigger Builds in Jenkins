@@ -1,0 +1,132 @@
+CONFIGURE TOMCAT USERS
+
+We need to edit one file so Jenkins can deploy to Tomcat.
+
+Step 1: Open the file
+
+Go to:
+C:\tomcat9\conf
+Look for:
+tomcat-users.xml
+Right click → Open With → Notepad
+
+Step 2: Add this inside <tomcat-users>
+Paste this EXACTLY:
+<role rolename="manager-script"/>
+<user username="admin" password="admin" roles="manager-script"/>
+
+Save → Close.
+
+Step 3: Start Tomcat
+Go to:
+C:\tomcat9\bin
+
+Double click:
+startup.bat
+
+Step 4: Verify
+Open browser
+Type:
+http://localhost:8080
+If you see Tomcat homepage → SUCCESS.
+
+NEXT PHASE:
+Step 1: Create web project folder
+Create a folder anywhere:
+web-project
+
+Step 2: Create these folders inside it
+web-project
+ └── src
+     └── main
+         └── webapp
+             └── index.jsp
+Step 3: Create index.jsp
+Inside index.jsp write:
+<h2>Hello from Jenkins Deployment!</h2>
+
+Step 4: Create pom.xml
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.example</groupId>
+  <artifactId>webapp</artifactId>
+  <version>1.0</version>
+  <packaging>war</packaging>
+</project>
+
+NEXT
+Open Jenkins → http://localhost:8080
+Click Manage Jenkins
+Click Credentials
+Click System
+Click Global credentials
+Click Add Credentials
+Enter:
+Username: admin
+Password: admin
+ID: tomcat-creds
+Click Save.
+
+CREATE PIPELINE
+Step 1: In Jenkins Dashboard
+Click New Item
+Name: WebApp-Pipeline
+Choose Pipeline
+Click OK
+Step 2: Scroll to Pipeline section
+Choose:
+Pipeline Script from SCM
+SCM: Git
+Repository URL:
+https://github.com/<yourname>/jenkins-web-project.git
+Script Path:
+Jenkinsfile
+
+CREATE THE JENKINSFILE
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone') {
+            steps {
+                git 'https://github.com/<yourname>/jenkins-web-project.git'
+            }
+        }
+
+        stage('Build WAR') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Deploy to Tomcat') {
+            steps {
+                deploy adapters: [tomcat9(credentialsId: 'tomcat-creds', 
+                    url: 'http://localhost:8080')], 
+                war: 'target/*.war'
+            }
+        }
+
+        stage('Verify') {
+            steps {
+                echo "App Deployed Successfully!"
+            }
+        }
+    }
+}
+
+RUN THE PIPELINE
+Go to Jenkins
+Open WebApp-Pipeline
+Click Build Now
+Watch console:
+You NEED to see:
+BUILD SUCCESS
+Deploying war
+
+FINAL VERIFICATION
+Open:
+http://localhost:8080/webapp
+If you see:
+Hello from Jenkins Deployment!
+YOU ARE DONE.
