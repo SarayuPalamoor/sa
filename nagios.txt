@@ -1,0 +1,11 @@
+
+docker pull jasonrivers/nagios:latest
+
+docker run --name nagiosdemo -p 8888:80 -d jasonrivers/nagios:latest
+
+docker ps      (just to verify)
+
+http://localhost:8888   (open in browser)
+
+username:nagiosadmin
+password:nagios
