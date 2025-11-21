@@ -1,0 +1,74 @@
+STEP 1 — Open Jenkins and your pipeline
+
+Open your web browser.
+
+Go to your Jenkins URL (something like http://localhost:8080/).
+
+Log in with your Jenkins username and password.
+
+Find your project/pipeline in the list (for example: Maven-Pipeline-Demo) and click on it.
+
+Why: We need a pipeline ready so GitHub can trigger it.
+STEP 2 — Make sure the GitHub plugin is installed in Jenkins
+
+On the Jenkins homepage, click Manage Jenkins.
+
+Click Manage Plugins.
+
+Go to the Installed tab and see if GitHub plugin is listed.
+
+If it’s not, go to the Available tab → search GitHub plugin → click Install without restart.
+
+Wait for installation to finish.
+
+Why: Jenkins needs this plugin to listen to GitHub webhooks.
+STEP 3 — Configure your Jenkins pipeline to accept webhooks
+
+Click on your pipeline/project name → Configure.
+
+Scroll down to Build Triggers.
+
+Check “GitHub hook trigger for GITScm polling”.
+
+Click Save at the bottom.
+
+Why: This allows Jenkins to start a build automatically when GitHub notifies it.
+Open your GitHub repo
+
+Open your browser → go to github.com → log in.
+
+Open the repository you want Jenkins to build (for example: jenkins-maven-demo).
+Add a webhook in GitHub
+
+On your repo page → click Settings (top-right).
+
+Click Webhooks (left menu) → click Add webhook.
+
+Payload URL → type:
+
+http://YOUR_JENKINS_URL/github-webhook/
+
+
+Example: http://localhost:8080/github-webhook/ if Jenkins is local.
+
+Content type → select application/json.
+
+Which events would you like to trigger this webhook? → select Just the push event.
+
+Click Add webhook.
+
+Why: This tells GitHub to “ping” Jenkins every time you push code.
+STEP 7 — Watch Jenkins automatically start the build
+
+Go back to Jenkins → open your pipeline/project.
+
+On the Build History (left side), you should see a new build starting automatically.
+
+Click the build number → click Console Output.
+
+You should see your build running and ending with:
+
+BUILD SUCCESS
+
+
+This proves the webhook worked.
