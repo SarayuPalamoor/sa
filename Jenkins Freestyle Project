@@ -1,0 +1,41 @@
+STEP 2 — Create a New Freestyle Project
+
+Click “New Item”
+
+Enter project name:
+👉 MavenBuildProject
+
+Select Freestyle project
+
+Click OK
+
+STEP 3 — Add Your Maven Project Source
+
+You have two options — choose ONE
+
+Scroll to Source Code Management → Git
+
+Repo URL: https://github.com/SarayuPalamoor/mavenjavaproject
+Branch: main
+
+STEP 4 — Tell Jenkins where Maven is
+
+Scroll to Build Environment / Build Step
+
+Click Add Build Step → Invoke top-level Maven targets
+
+Fill it like this:
+Goals:
+clean install
+
+STEP 5 — Save the project
+
+Click Save
+
+STEP 6 — Build it
+
+Click Build Now
+
+Wait 5–10 seconds
+
+Click Console Output
