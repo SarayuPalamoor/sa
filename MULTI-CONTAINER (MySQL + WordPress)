@@ -1,0 +1,70 @@
+⭐ STEP 1 — Create a project folder
+
+Open CMD / PowerShell:
+
+mkdir wordpress-mysql
+cd wordpress-mysql
+
+⭐ STEP 2 — Create docker-compose.yml
+
+Run:
+
+notepad docker-compose.yml
+
+
+Paste this EXACT FILE (100% correct, safe, exam-perfect):
+
+version: '3.8'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: wordpressdb
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wp123
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress_container
+    depends_on:
+      - db
+    ports:
+      - "8085:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_U
+
+SER: wpuser
+      WORDPRESS_DB_PASSWORD: wp123
+      WORDPRESS_DB_NAME: wordpressdb
+    volumes:
+      - wp_data:/var/www/html
+
+volumes:
+  db_data:
+  wp_data:
+
+
+Save and close.
+
+⭐ STEP 3 — Run the stack
+
+In the same folder:
+
+docker-compose up -d
+
+STEP 4 — Check containers
+docker ps
+
+STEP 5 — Open WordPress
+
+Open your browser:
+
+http://localhost:8085
