@@ -1,0 +1,48 @@
+Step 1 — Create a new Freestyle Project
+
+On the Jenkins dashboard, click “New Item” (top-left).
+
+Enter a name for your project, e.g., mavenjavaproject.
+
+Select “Freestyle project”.
+
+Click OK.
+
+Step 2 — Connect to your GitHub repo
+
+Scroll to Source Code Management → Git.
+
+In Repository URL, paste your GitHub repo URL (e.g., https://github.com/SarayuPalamoor/mavenjavaproject).
+
+If it’s a private repo, click Add → Jenkins under Credentials → enter your GitHub username and personal access token → Add.
+
+Leave Branch Specifier as */main (or */master if your repo uses master).
+
+Step 3 — Configure Maven build
+
+Scroll to Build → Add build step → Invoke top-level Maven targets.
+
+Maven Version: select the one you configured earlier (e.g., Maven3).
+
+Goals: type:
+
+clean package
+
+
+This tells Maven to clean the previous build and package your project into a JAR.
+
+Step 5 — Save and build
+
+Click Save at the bottom.
+
+On the project page, click Build Now (left-hand menu).
+
+A new build will appear in Build History.
+
+Click the #1 build → Console Output to see the Maven build logs.
+
+Step 6 — Verify the build
+
+After a successful build, scroll to Last Successful Artifacts → target/
+
+You should see your .jar file (e.g., PreethikaJava-0.0.1-SNAPSHOT.jar).
