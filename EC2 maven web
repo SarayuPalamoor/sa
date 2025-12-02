@@ -1,0 +1,33 @@
+
+sudo apt update
+sudo apt-get  install docker.io
+ sudo apt install git
+ sudo apt install nano
+
+git clone https://github.com/SarayuPalamoor/mavenjavaproject.git
+
+ls
+cd foldername
+
+nano Dockerfile 
+(paste): {
+# Use Java base image
+FROM openjdk:17-jdk
+
+# Set working directory inside container
+WORKDIR /usr/app
+
+# Copy the JAR file
+COPY target/*.jar app.jar
+
+# Run the JAR
+CMD ["java", "-jar", "app.jar"]
+
+
+}
+sudo docker build -t mavenweb .
+sudo docker run -d -p 9090:8080 mavenweb
+
+go to instance and copy public ipv4
+paste in browser 
+ip address :9090/mavenjavaproject
