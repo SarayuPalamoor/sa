@@ -1,0 +1,40 @@
+✅ STEP 1 — Create a folder
+
+Make a folder anywhere:
+
+docker-demo
+
+
+Go inside it and create two files: 
+✅ STEP 2 — Create index.html
+
+code .
+
+Inside docker-demo, make:
+
+index.html
+<html>
+  <h1>Hello from Docker!</h1>
+</html>
+
+✅ STEP 3 — Create Dockerfile
+
+Inside the same folder, create:
+
+Dockerfile
+
+FROM nginx:alpine
+COPY index.html /usr/share/nginx/html/index.html
+
+✅ STEP 4 — Build the image
+
+Open CMD inside the docker-demo folder:
+
+docker build -t mywebapp .
+
+✅ STEP 5 — Run the image
+docker run -d -p 8080:80 mywebapp
+
+✅ STEP 6 — Access in browser
+Open:
+👉 http://localhost:8080
