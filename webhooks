@@ -1,0 +1,76 @@
+Full Working Steps: GitHub → Jenkins Build
+Step 1: Create Jenkins Job
+
+Open Jenkins → New Item.
+
+Enter a job name (e.g., webhookss).
+
+Select Freestyle project → Click OK.
+
+Step 2: Configure Source Code
+
+Under Source Code Management → Git, enter your repository URL:
+
+https://github.com/SarayuPalamoor/mavenjavaproject
+
+
+If your repo is private, add Git credentials.
+
+Step 3: Add Build Step
+
+Scroll down to Build → Add build step → Invoke top-level Maven targets.
+
+Goals:
+
+clean install
+
+
+This will compile, test, and package your Java Maven project.
+
+Step 4: Enable Poll SCM
+
+Scroll to Build Triggers → Poll SCM.
+
+In Schedule, enter:
+
+H/5 * * * *
+
+
+Jenkins will check GitHub every 5 minutes for new commits.
+
+✅ You don’t need a public URL or ngrok with this approach.
+
+Step 5: Save Job
+
+Click Save.
+
+Step 6: Test Trigger
+
+Make a small change in your repo, e.g., edit README.md.
+
+Push the change to GitHub:
+
+git add README.md
+git commit -m "Test Poll SCM build trigger"
+git push origin main
+
+
+Wait up to 5 minutes.
+
+Step 7: Verify Build
+
+Go to Jenkins → Your job → Build History → A new build should appear.
+
+Click on the latest build → Console Output.
+
+You should see Maven running, ending with:
+
+[INFO] BUILD SUCCESS
+
+Step 8: Capture Required Screenshots
+
+Poll SCM trigger screenshot (Build Triggers section).
+
+Auto-triggered build screenshot (Build History showing the build).
+
+Console Output screenshot (showing BUILD SUCCESS).
