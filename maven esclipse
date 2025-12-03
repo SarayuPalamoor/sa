@@ -1,0 +1,129 @@
+✅ STEP 1 — Open Eclipse
+
+Just launch it → choose any workspace → continue.
+
+✅ STEP 2 — Create a NEW Maven Project
+
+On top menu:
+File → New → Project…
+
+Type “maven” in the search box.
+
+Select: Maven → Maven Project
+
+Click Next
+
+✅ STEP 3 — Choose Archetype
+
+Check this box: Create a simple project (skip archetype selection) ➝ OFF
+(which means: DON’T tick it)
+
+Keep everything default and click Next
+
+Now Eclipse shows a big list of archetypes.
+
+In the filter box type:
+
+quickstart
+
+
+Select:
+
+maven-archetype-quickstart
+
+
+Click Next
+
+✅ STEP 4 — Enter Project Details
+
+Fill exactly like this:
+
+Group Id: com.example
+
+Artifact Id: myproject
+
+Version: leave default
+
+Package: leave default
+
+Click Finish
+
+🎉 Your Maven project is created.
+
+✅ STEP 5 — Open the Java file
+
+Navigate:
+myproject/src/main/java/com/example/App.java
+
+Eclipse already creates this file.
+
+Replace content with:
+
+package com.example;
+
+public class App {
+    public static void main(String[] args) {
+        System.out.println("Hello from Maven Project!");
+    }
+}
+
+
+Save (Ctrl + S).
+
+✅ STEP 6 — RUN it
+
+Right-click App.java → Run As → Java Application
+
+You should see:
+
+Hello from Maven Project!
+
+
+Congrats. You’re alive.
+
+✅ STEP 7 — PUSH TO GITHUB
+🔹 7.1 Initialize Git inside the project
+
+Right-click the project folder →
+Show in → System Explorer (or File Explorer)
+
+Inside that folder, right-click → Open Terminal
+
+Run:
+
+git init
+git add .
+git commit -m "Initial Maven project"
+
+🔹 7.2 Create a GitHub repo
+
+Go to: https://github.com/new
+
+Fill:
+
+Repo name: myproject
+
+Public
+
+DON’T add README
+
+Create.
+
+Copy your repo URL, like:
+
+https://github.com/USERNAME/myproject.git
+
+🔹 7.3 Push it
+
+Back in your terminal:
+
+git remote add origin https://github.com/USERNAME/myproject.git
+git branch -M main
+git push -u origin main
+
+
+Login if asked (token as password).
+
+🎉 DONE
+
+You created → ran → and pushed a Maven project from Eclipse.
