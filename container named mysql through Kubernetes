@@ -1,0 +1,68 @@
+⭐ STEP 1 — Create a folder for Kubernetes files
+
+mkdir mini
+cd mini
+
+Go inside → create a file named:
+code.
+mysql-deployment.yml
+
+Paste this into it:
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "password"
+        ports:
+        - containerPort: 3306
+
+
+This creates one MySQL pod.
+
+⭐ STEP 2 — Apply it to Kubernetes
+
+Open CMD inside that folder
+(type cmd in the folder’s address bar)
+
+Run:
+kubectl apply -f mysql-deployment.yml
+
+Check if pod is running:
+
+kubectl get pods
+
+You should see:
+
+mysql-xxxxxxxxx   1/1   Running
+
+⭐ STEP 3 — SCALE THE MYSQL DEPLOYMENT
+
+Scale to 3 replicas:
+
+kubectl scale deployment mysql --replicas=3
+
+Check:
+
+kubectl get pods
+
+You will now see:
+
+mysql-xxxxx   Running  
+mysql-yyyyy   Running  
+mysql-zzzzz   Running  
