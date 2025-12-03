@@ -1,0 +1,85 @@
+Step 1 — Pull and run Nagios container
+
+On Windows PowerShell:
+
+docker pull jasonrivers/nagios:latest
+docker run --name nagios4 -p 8090:80 -d jasonrivers/nagios:latest
+
+
+Open Nagios in browser:
+
+http://localhost:8090/nagios
+
+
+Default login:
+
+User: nagiosadmin
+Pass: nagios
+
+Step 2 — Enter the Nagios container shell
+docker exec -it nagios4 bash
+
+
+Inside the container, configs are at /opt/nagios/etc/objects.
+
+Step 3 — Install an editor (nano) if needed
+
+This container has no editor by default. Install nano:
+
+apt-get update
+apt-get install nano -y
+
+Step 4 — Add a simple monitoring check
+
+Go to config folder:
+
+cd /opt/nagios/etc/objects
+
+
+Open localhost.cfg:
+
+nano localhost.cfg
+
+
+Scroll to the bottom and add this exact block:
+
+define service{
+    use                     local-service
+    host_name               localhost
+    service_description     Check Google
+    check_command           check_http!www.google.com
+}
+
+
+Save & exit:
+
+Press CTRL+O → ENTER → CTRL+X
+
+Step 5 — Exit container
+exit
+
+Step 6 — Restart Nagios container to apply changes
+
+From Windows host PowerShell (not inside container):
+
+docker restart nagios4
+
+Step 7 — Verify Nagios monitoring
+
+Open in browser:
+
+http://localhost:8090/nagios
+
+
+Go to:
+
+Services → All Services
+
+
+Look for Check Google. Status meanings:
+
+GREEN = OK → Google is reachable
+
+RED = DOWN → Google unreachable
+
+ORANGE = WARNING → problem detected
